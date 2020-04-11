@@ -1,7 +1,7 @@
 import algorithms.Dijkstra002;
 import classes.*;
 import interfaces.IAbstractGraph;
-import interfaces.Place;
+import interfaces.IPlace;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,13 +15,13 @@ public class MyPanel extends JPanel {
     private final int MARGIN = 20;
 
     private boolean dijkstraEnable = false;
-    private Place source;
-    private Place destination;
+    private IPlace source;
+    private IPlace destination;
 
 
-    private IAbstractGraph<String, Place, Path> graph;
+    private IAbstractGraph<String, IPlace, Path> graph;
 
-    public void setGraph(IAbstractGraph<String, Place, Path> graph) {
+    public void setGraph(IAbstractGraph<String, IPlace, Path> graph) {
         this.graph = graph;
     }
 
@@ -39,10 +39,10 @@ public class MyPanel extends JPanel {
 
         if (graph != null) {
             // print lines
-            for (Place nod : graph.getAllVortex()) {
+            for (IPlace nod : graph.getAllVortex()) {
                 for (Path path : graph.getIncidentEdges(nod.getName())) {
-                    Line2D line = new Line2D.Double(MARGIN + path.getStartPlace().getX() * OFFSET, MARGIN + path.getStartPlace().getY() * OFFSET,
-                            MARGIN + path.getFinishPlace().getX() * OFFSET, MARGIN + path.getFinishPlace().getY() * OFFSET);
+                    Line2D line = new Line2D.Double(MARGIN + path.getStartIPlace().getX() * OFFSET, MARGIN + path.getStartIPlace().getY() * OFFSET,
+                            MARGIN + path.getFinishIPlace().getX() * OFFSET, MARGIN + path.getFinishIPlace().getY() * OFFSET);
                     g2.setPaint(Color.BLACK);
                     if (!path.isUsable()) {
                         g2.setPaint(Color.RED);
@@ -55,9 +55,9 @@ public class MyPanel extends JPanel {
 
             if (dijkstraEnable) {
                 Dijkstra002 dijkstra = new Dijkstra002();
-                List<Place> path = dijkstra.dijkstraAlgorithm(graph, source, destination);
+                List<IPlace> path = dijkstra.dijkstraAlgorithm(graph, source, destination);
                 for (int i = 0; i < path.size() - 1; i++) {
-                    Place temp = path.get(i + 1);
+                    IPlace temp = path.get(i + 1);
 
                     Line2D line = new Line2D.Double(MARGIN + path.get(i).getX() * OFFSET, MARGIN + path.get(i).getY() * OFFSET,
                             MARGIN + temp.getX() * OFFSET, MARGIN + temp.getY() * OFFSET);
@@ -73,7 +73,7 @@ public class MyPanel extends JPanel {
             }
 
             // print points
-            for (Place nod : graph.getAllVortex()) {
+            for (IPlace nod : graph.getAllVortex()) {
                 Ellipse2D oval = new Ellipse2D.Double(MARGIN + nod.getX() * OFFSET - (CICLE_PARAM / 2),
                         MARGIN + nod.getY() * OFFSET - (CICLE_PARAM / 2), CICLE_PARAM, CICLE_PARAM);
 

@@ -2,7 +2,7 @@ import IOOperations.InOutStream;
 import classes.*;
 import enums.TypeOfNode;
 import interfaces.IAbstractGraph;
-import interfaces.Place;
+import interfaces.IPlace;
 
 import javax.swing.*;
 
@@ -11,7 +11,7 @@ public class Main {
 
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 700;
-    private static IAbstractGraph<String, Place, Path> graph = new Graph01<>();
+    private static IAbstractGraph<String, IPlace, Path> graph = new Graph01<>();
 
     public static void main(String[] args) {
 
@@ -66,11 +66,11 @@ public class Main {
         f.add(firstNode);
         f.add(secondNode);
         addEdgeButton.addActionListener(e -> {
-            Place placeStart = graph.getVortex(firstNode.getText());
-            Place placeFinish = graph.getVortex(secondNode.getText());
-            Path path = new Path(placeStart, placeFinish, 1);
+            IPlace IPlaceStart = graph.getVortex(firstNode.getText());
+            IPlace IPlaceFinish = graph.getVortex(secondNode.getText());
+            Path path = new Path(IPlaceStart, IPlaceFinish, 1);
             try {
-                graph.addPath(path.getStartPlace().getName(), path.getFinishPlace().getName(), path);
+                graph.addPath(path.getStartIPlace().getName(), path.getFinishIPlace().getName(), path);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

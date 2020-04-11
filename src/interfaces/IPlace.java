@@ -3,13 +3,13 @@ package interfaces;
 
 import java.io.Serializable;
 
-public abstract class Place implements Serializable {
+public abstract class IPlace implements Serializable {
 
     private String name;
     private int x;
     private int y;
 
-    public Place(String name, int x, int y) {
+    public IPlace(String name, int x, int y) {
         this.name = name;
         this.x = x;
         this.y = y;

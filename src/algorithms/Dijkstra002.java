@@ -2,7 +2,7 @@ package algorithms;
 
 import classes.Path;
 import interfaces.IAbstractGraph;
-import interfaces.Place;
+import interfaces.IPlace;
 
 import java.util.*;
 
@@ -24,33 +24,33 @@ public class Dijkstra002 {
 //                                  p[v] := u
 
 
-    public static Queue<DijkstraNode> countDistance(IAbstractGraph<String, Place, Path> graph, Queue<DijkstraNode> queue) {
-        Map<Place, DijkstraNode> close = new HashMap<>();
+    public static Queue<DijkstraNode> countDistance(IAbstractGraph<String, IPlace, Path> graph, Queue<DijkstraNode> queue) {
+        Map<IPlace, DijkstraNode> close = new HashMap<>();
         Queue<DijkstraNode> openList = new PriorityQueue<>();
         while (!queue.isEmpty()) {
             DijkstraNode place = queue.poll();
 
-            if (!close.containsKey(place.place)) {
-                close.put(place.place, place);
+            if (!close.containsKey(place.IPlace)) {
+                close.put(place.IPlace, place);
             }
-            List<Path> edges = graph.getIncidentEdges(place.place.getName());
+            List<Path> edges = graph.getIncidentEdges(place.IPlace.getName());
 
             if (edges == null) {
-                System.out.println("NOT foumd: " + place.place.getName());
+                System.out.println("NOT foumd: " + place.IPlace.getName());
                 break;
             }
             for (Path h : edges) {
 
                 DijkstraNode city;
-                Place m;
+                IPlace m;
                 Path path = h;
 
                 if (path.isUsable()) {
-                    Place finishPalce = h.getFinishPlace();
-                    if (finishPalce.getName().equals(place.place.getName())) {
-                        m = h.getStartPlace();
+                    IPlace finishPalce = h.getFinishIPlace();
+                    if (finishPalce.getName().equals(place.IPlace.getName())) {
+                        m = h.getStartIPlace();
                     } else {
-                        m = h.getFinishPlace();
+                        m = h.getFinishIPlace();
                     }
                     if (close.containsKey(m)) {
                         city = close.get(m);
@@ -67,20 +67,20 @@ public class Dijkstra002 {
                         city.minPath = costOfComplexPath;
                         city.predecessor = place;
                         close.remove(city);
-                        close.put(city.place, city);
+                        close.put(city.IPlace, city);
                         queue.add(city);
                     }
                 }
             }
         }
-        for (Map.Entry<Place, DijkstraNode> entrySet : close.entrySet()) {
+        for (Map.Entry<IPlace, DijkstraNode> entrySet : close.entrySet()) {
             DijkstraNode value = entrySet.getValue();
             openList.add(value);
         }
         return openList;
     }
 
-    public static List<Place> dijkstraAlgorithm(IAbstractGraph<String, Place, Path> graph, Place start, Place finish) {
+    public static List<IPlace> dijkstraAlgorithm(IAbstractGraph<String, IPlace, Path> graph, IPlace start, IPlace finish) {
         DijkstraNode startNode = new DijkstraNode(start);
         startNode.minPath = 0;
         Queue<DijkstraNode> queue = new PriorityQueue<>();
@@ -88,7 +88,7 @@ public class Dijkstra002 {
 
         Queue<DijkstraNode> path = countDistance(graph, queue);
 
-        List<Place> findPath = new LinkedList<>();
+        List<IPlace> findPath = new LinkedList<>();
 
         if (path != null) {
             LinkedList<DijkstraNode> list = new LinkedList<>();
@@ -107,34 +107,34 @@ public class Dijkstra002 {
         return findPath;
     }
 
-    private static List<Place> writePathFrom(Queue<DijkstraNode> path, Place start, Place finish) {
+    private static List<IPlace> writePathFrom(Queue<DijkstraNode> path, IPlace start, IPlace finish) {
         int counter = 0;
         System.out.println("Starts from " + start.getName());
-        List<Place> findPath = new LinkedList<>();
+        List<IPlace> findPath = new LinkedList<>();
         while (counter != path.size()) {
             DijkstraNode node = path.poll();
-            if (node.place.getName().equals(finish.getName())) {
+            if (node.IPlace.getName().equals(finish.getName())) {
                 DijkstraNode tempWritePathList = node.predecessor;
-                findPath.add(node.place);
+                findPath.add(node.IPlace);
                 if (tempWritePathList != null) {
                     while (tempWritePathList.predecessor != null) {
-                        findPath.add(tempWritePathList.place);
+                        findPath.add(tempWritePathList.IPlace);
                         tempWritePathList = tempWritePathList.predecessor;
                     }
                 }
                 findPath.add(start);
             }
-            System.out.print("Path to: " + node.place.getName() + " price of path " + node.minPath);
+            System.out.print("Path to: " + node.IPlace.getName() + " price of path " + node.minPath);
             if (node.predecessor != null) {
                 DijkstraNode temp = node.predecessor;
                 if (temp.predecessor != null) {
                     while (temp.predecessor != null) {
-                        System.out.print(" From: " + temp.place.getName());
+                        System.out.print(" From: " + temp.IPlace.getName());
                         temp = temp.predecessor;
                     }
                     System.out.println("");
                 } else {
-                    System.out.println(" From: " + temp.place.getName());
+                    System.out.println(" From: " + temp.IPlace.getName());
                 }
             } else {
                 System.out.println("");
@@ -145,23 +145,23 @@ public class Dijkstra002 {
 
     private static void successorMatrix(LinkedList<DijkstraNode> path) {
         String[][] array = new String[path.size() + 1][path.size()];
-        Map<Place, Place> close = new HashMap<>();
+        Map<IPlace, IPlace> close = new HashMap<>();
 
         // fill column from
         System.out.println("");
         array[0][0] = "NULL";
         for (int i = 1; i < path.size() + 1; i++) {
-            if (!close.containsKey(path.get(i - 1).place)) {
-                array[i][0] = path.get(i - 1).place.getName();
-                close.put(path.get(i - 1).place, path.get(i - 1).place);
+            if (!close.containsKey(path.get(i - 1).IPlace)) {
+                array[i][0] = path.get(i - 1).IPlace.getName();
+                close.put(path.get(i - 1).IPlace, path.get(i - 1).IPlace);
             }
         }
         // fill column to
         close.clear();
         for (int i = 1; i < path.size(); i++) {
-            if (!close.containsKey(path.get(i).place)) {
-                array[0][i] = path.get(i).place.getName();
-                close.put(path.get(i).place, path.get(i).place);
+            if (!close.containsKey(path.get(i).IPlace)) {
+                array[0][i] = path.get(i).IPlace.getName();
+                close.put(path.get(i).IPlace, path.get(i).IPlace);
             }
         }
 
@@ -170,10 +170,10 @@ public class Dijkstra002 {
             if (temp.predecessor != null) {
                 while (temp.predecessor != null) {
                     String defaultPlace = array[1][0];
-                    int position = getCount(path, temp.predecessor.place);
-                    array[position + 1][i] = "" + temp.place.getName();
+                    int position = getCount(path, temp.predecessor.IPlace);
+                    array[position + 1][i] = "" + temp.IPlace.getName();
                     temp = temp.predecessor;
-                    if (temp.place.getName().equals(defaultPlace)) {
+                    if (temp.IPlace.getName().equals(defaultPlace)) {
                         break;
                     }
                 }
@@ -200,9 +200,9 @@ public class Dijkstra002 {
         }
     }
 
-    public static int getCount(LinkedList<DijkstraNode> paths, Place place) {
+    public static int getCount(LinkedList<DijkstraNode> paths, IPlace IPlace) {
         for (int i = 0; i < paths.size(); i++) {
-            if (paths.get(i).place.getName().equals(place.getName())) {
+            if (paths.get(i).IPlace.getName().equals(IPlace.getName())) {
                 return i;
             }
         }
@@ -226,20 +226,20 @@ public class Dijkstra002 {
     private static class DijkstraNode implements Comparable {
         double minPath;
         DijkstraNode predecessor;
-        Place place;
+        IPlace IPlace;
 
 
-        public DijkstraNode(Place place) {
-            this.place = place;
+        public DijkstraNode(IPlace IPlace) {
+            this.IPlace = IPlace;
             minPath = Integer.MAX_VALUE;
         }
 
         @Override
         public String toString() {
             if (predecessor == null) {
-                return "[Distance=" + minPath + ", place=" + place.getName() + ']' + "\n";
+                return "[Distance=" + minPath + ", IPlace=" + IPlace.getName() + ']' + "\n";
             } else {
-                return "[Distance=" + minPath + ", place=" + place.getName() + " over=" + predecessor.place.getName() + ']' + "\n";
+                return "[Distance=" + minPath + ", IPlace=" + IPlace.getName() + " over=" + predecessor.IPlace.getName() + ']' + "\n";
             }
         }
 

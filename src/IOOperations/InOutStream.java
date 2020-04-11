@@ -2,7 +2,7 @@ package IOOperations;
 
 import classes.Path;
 import interfaces.IAbstractGraph;
-import interfaces.Place;
+import interfaces.IPlace;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,7 +13,7 @@ public class InOutStream {
 
     private static final String FILE_PATH = "f.txt";
 
-    public static void storeGraph(IAbstractGraph<String, Place, Path> graph) {
+    public static void storeGraph(IAbstractGraph<String, IPlace, Path> graph) {
         try {
             // Creating stream and writing the object
             FileOutputStream fileOut = new FileOutputStream(FILE_PATH);
@@ -27,12 +27,12 @@ public class InOutStream {
         }
     }
 
-    public static IAbstractGraph<String, Place, Path> loadGraphFromFile() {
+    public static IAbstractGraph<String, IPlace, Path> loadGraphFromFile() {
         IAbstractGraph graph = null;
         try {
             // Creating stream to read the object
             ObjectInputStream objectIn = new ObjectInputStream(new FileInputStream(FILE_PATH));
-            graph = (IAbstractGraph<String, Place, Path>) objectIn.readObject();
+            graph = (IAbstractGraph<String, IPlace, Path>) objectIn.readObject();
             objectIn.close();
             System.out.println("Success load up graph!"); //TODO remoce
         } catch (Exception e) {
