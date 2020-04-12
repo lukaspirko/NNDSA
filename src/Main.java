@@ -1,18 +1,24 @@
+import RangeTree.RangeTree01;
 import graph.Graph;
 import IOOperations.InOutStream;
 import classes.*;
 import enums.TypeOfNode;
 import interfaces.IAbstractGraph;
+import interfaces.IAbstractRangeTree;
+import interfaces.ICoordinates;
 import interfaces.IPlace;
 
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Main {
 
     private static final int WIDTH = 1000;
-    private static final int HEIGHT = 700;
+    private static final int HEIGHT = 800;
     private static IAbstractGraph<String, IPlace, Path> graph = new Graph<>();
+    private static IAbstractRangeTree<ICoordinates> rangeTree = new RangeTree01<>();
 
     public static void main(String[] args) {
 
@@ -154,6 +160,69 @@ public class Main {
         f.add(findButton);
         f.add(findPathNode1);
         f.add(findPathNode2);
+
+        JButton buildTree = new JButton("build tree");
+        JTextArea textField = new JTextArea();
+        buildTree.setBounds(WIDTH - 120, 470, 110, 30);
+        buildTree.addActionListener(e -> {
+            List<ICoordinates> list = new ArrayList<>();
+            for (IPlace place : graph.getAllVortex()) {
+                ICoordinates coor = new Coordinates();
+                coor.setX(place.getX());
+                coor.setY(place.getY());
+                list.add(coor);
+            }
+            rangeTree.build(list);
+            textField.setText("tree build success");
+            f.repaint();
+        });
+        f.add(buildTree);
+
+        JButton simplyFind = new JButton("find");
+
+        textField.setBounds(WIDTH - 300, 560, 290, 90);
+        simplyFind.setBounds(WIDTH - 120, 500, 110, 30);
+        simplyFind.addActionListener(e -> {
+            ICoordinates coor = new Coordinates();
+            coor.setX(Integer.parseInt(findPathNode2.getText()));
+            coor.setY(Integer.parseInt(findPathNode1.getText()));
+            ICoordinates node = rangeTree.simplyFind(coor);
+            if(node != null) {
+                textField.setText(node.toString());
+            } else {
+                textField.setText("not found");
+            }
+        f.repaint();
+        });
+        f.add(simplyFind);
+
+
+        JButton intervalFind = new JButton("Interval Find");
+
+        intervalFind.setBounds(WIDTH - 120, 530, 110, 30);
+        intervalFind.addActionListener(e -> {
+            ICoordinates coorFROM = new Coordinates();
+            coorFROM.setX(Integer.parseInt(secondNode.getText()));
+            coorFROM.setY(Integer.parseInt(firstNode.getText()));
+            ICoordinates coorTO = new Coordinates();
+            coorTO.setX(Integer.parseInt(findPathNode2.getText()));
+            coorTO.setY(Integer.parseInt(findPathNode1.getText()));
+
+            List<ICoordinates> list =  rangeTree.intervalFind(coorFROM, coorTO);
+
+            StringBuilder str = new StringBuilder();
+            for(ICoordinates cor : list) {
+                str.append(cor.toString() + "\n");
+            }
+            textField.setText(str.toString());
+
+
+
+            f.repaint();
+        });
+        f.add(textField);
+        f.add(intervalFind);
+
 
 
         f.setResizable(false);

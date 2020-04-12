@@ -13,7 +13,7 @@ public class MyMain {
         Random rn = new Random();
         //rn.nextInt(130) + 1;
 
-
+/*
         IPlace IPlaceB = new Crossroad("B", rn.nextInt(120) + 1, rn.nextInt(120) + 1);
 
         IPlace IPlaceD = new Crossroad("D", rn.nextInt(120) + 1, rn.nextInt(120) + 1);
@@ -88,10 +88,23 @@ public class MyMain {
 
         Path pathFE = new Path(IPlaceF, IPlaceE, 1);
 
+*/
+        IPlace IPlaceA = new Landing("A[5:5]",5,5); // Color.GREEN
+        IPlace IPlaceB = new Crossroad("B[3:23]", 3, 23);
+        IPlace IPlaceC = new Landing("C[23:32]",23,32 ); // Color.GREEN
+        IPlace IPlaceD = new Crossroad("D[11:11]",11,11 );
+        IPlace IPlaceE = new Station("E[19:17]", 19,17); // Color.BLUE
+        IPlace IPlaceF = new Crossroad("F[21:22]", 21,22);
 
         IAbstractGraph<String, IPlace, Path> graph = new Graph<>();
 
-
+        graph.addNode(IPlaceA.getName(), IPlaceA);
+        graph.addNode(IPlaceB.getName(), IPlaceB);
+        graph.addNode(IPlaceC.getName(), IPlaceC);
+        graph.addNode(IPlaceD.getName(), IPlaceD);
+        graph.addNode(IPlaceE.getName(), IPlaceE);
+        graph.addNode(IPlaceF.getName(), IPlaceF);
+/*
 
         graph.addNode(IPlaceB.getName(), IPlaceB);
         graph.addNode(IPlaceD.getName(), IPlaceD);
@@ -168,7 +181,7 @@ public class MyMain {
         graph.addPath(IPlaceD.getName(), IPlaceF.getName(), pathDF);
         graph.addPath(IPlaceD.getName(), IPlaceE.getName(), pathDE);
 
-        graph.addPath(IPlaceF.getName(), IPlaceE.getName(), pathFE);
+        graph.addPath(IPlaceF.getName(), IPlaceE.getName(), pathFE);*/
 
         // call for store graph
         InOutStream.storeGraph(graph);
