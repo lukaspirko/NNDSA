@@ -1,11 +1,11 @@
-package classes;
+package graph;
 
 import interfaces.IAbstractGraph;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class Graph01<K, V, H> implements Serializable, IAbstractGraph<K, V, H> {
+public class Graph<K, V, H> implements Serializable, IAbstractGraph<K, V, H> {
 
     private Map<K, Node> nodes = new HashMap<>();
 

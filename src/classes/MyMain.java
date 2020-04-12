@@ -1,5 +1,6 @@
 package classes;
 
+import graph.Graph;
 import IOOperations.InOutStream;
 import interfaces.IAbstractGraph;
 import interfaces.IPlace;
@@ -88,7 +89,7 @@ public class MyMain {
         Path pathFE = new Path(IPlaceF, IPlaceE, 1);
 
 
-        IAbstractGraph<String, IPlace, Path> graph = new Graph01<>();
+        IAbstractGraph<String, IPlace, Path> graph = new Graph<>();
 
 
 

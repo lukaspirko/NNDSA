@@ -1,3 +1,4 @@
+import graph.Graph;
 import IOOperations.InOutStream;
 import classes.*;
 import enums.TypeOfNode;
@@ -11,7 +12,7 @@ public class Main {
 
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 700;
-    private static IAbstractGraph<String, IPlace, Path> graph = new Graph01<>();
+    private static IAbstractGraph<String, IPlace, Path> graph = new Graph<>();
 
     public static void main(String[] args) {
 
