@@ -200,6 +200,11 @@ public class RangeTree01<D extends ICoordinates> implements IAbstractRangeTree<D
         if (root == null) {
             return null;
         }
+        if(souMin.getX() > souMax.getX()) {
+            D temp = souMax;
+            souMax = souMin;
+            souMin = temp;
+        }
         List<D> list = new ArrayList<>();
 
         Node tmp = simplyFindMin(souMin);

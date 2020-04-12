@@ -65,8 +65,8 @@ public class Main {
 
         // add edge
         JButton addEdgeButton = new JButton("Add Edge");
-        JTextField firstNode = new JTextField("node1", 20);
-        JTextField secondNode = new JTextField("node2", 20);
+        JTextField firstNode = new JTextField("Y", 20);
+        JTextField secondNode = new JTextField("X", 20);
         firstNode.setBounds(WIDTH - 60, 140, 40, 30);
         secondNode.setBounds(WIDTH - 120, 140, 40, 30);
         addEdgeButton.setBounds(WIDTH - 120, 170, 110, 30);
@@ -146,8 +146,8 @@ public class Main {
         f.add(loadButton);
 
         // calculate trip
-        JTextField findPathNode1 = new JTextField("nodeF", 20);
-        JTextField findPathNode2 = new JTextField("nodeS", 20);
+        JTextField findPathNode1 = new JTextField("Y", 20);
+        JTextField findPathNode2 = new JTextField("X", 20);
         JButton findButton = new JButton("Find Way");
         findPathNode1.setBounds(WIDTH - 60, 410, 40, 30);
         findPathNode2.setBounds(WIDTH - 120, 410, 40, 30);
