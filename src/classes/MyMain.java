@@ -89,12 +89,19 @@ public class MyMain {
         Path pathFE = new Path(IPlaceF, IPlaceE, 1);
 
 */
-        IPlace IPlaceA = new Landing("A[5:5]",5,5); // Color.GREEN
-        IPlace IPlaceB = new Crossroad("B[3:23]", 3, 23);
-        IPlace IPlaceC = new Landing("C[23:32]",23,32 ); // Color.GREEN
-        IPlace IPlaceD = new Crossroad("D[11:11]",11,11 );
-        IPlace IPlaceE = new Station("E[19:17]", 19,17); // Color.BLUE
-        IPlace IPlaceF = new Crossroad("F[21:22]", 21,22);
+//        IPlace IPlaceA = new Landing("A[5:5]",5,5); // Color.GREEN
+//        IPlace IPlaceB = new Crossroad("B[3:23]", 3, 23);
+//        IPlace IPlaceC = new Landing("C[23:32]",23,32 ); // Color.GREEN
+//        IPlace IPlaceD = new Crossroad("D[11:11]",11,11 );
+//        IPlace IPlaceE = new Station("E[19:17]", 19,17); // Color.BLUE
+//        IPlace IPlaceF = new Crossroad("F[21:22]", 21,22);
+
+        IPlace IPlaceA = new Landing("A11",5,5); // Color.GREEN
+        IPlace IPlaceB = new Crossroad("A22", 3, 23);
+        IPlace IPlaceC = new Landing("BBB",23,32 ); // Color.GREEN
+        IPlace IPlaceD = new Crossroad("ACA",11,11 );
+        IPlace IPlaceE = new Station("EAA", 21,22);
+        IPlace IPlaceF = new Crossroad("FAS", 21,22);
 
         IAbstractGraph<String, IPlace, Path> graph = new Graph<>();
 

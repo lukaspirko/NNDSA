@@ -4,7 +4,6 @@ import interfaces.IAbstractRangeTree;
 import interfaces.ICoordinates;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 
